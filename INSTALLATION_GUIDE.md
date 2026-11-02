@@ -11,7 +11,7 @@ Android phone or tablet. Your original images are kept.
 
 - A phone or tablet running **Android 9 or newer**. To check, open **Settings**,
   then look under **About phone** or **About tablet** for **Android version**.
-- The `WebP-Converter-v1.0.0-Android.apk` file supplied by the developer.
+- The `WebP-Converter-v1.1.0-Android.apk` file supplied by the developer.
 - Enough free storage for the app and the converted images. The APK is about
   2.1 MB; large batches need more free space.
 - An internet connection only if you need to download the APK. Image conversion
@@ -23,28 +23,28 @@ directly on your phone.
 
 ## 1. Get the APK safely
 
-1. Ask the developer for `WebP-Converter-v1.0.0-Android.apk` and obtain it through a source you
+1. Ask the developer for `WebP-Converter-v1.1.0-Android.apk` and obtain it through a source you
    trust. This guide does not provide a public download website.
 2. Download it on your phone, or copy it from a computer:
    - Connect your unlocked phone to the computer using a USB cable.
    - If prompted on the phone, choose **File transfer**.
-   - Copy `WebP-Converter-v1.0.0-Android.apk` to the phone's **Downloads** folder.
+   - Copy `WebP-Converter-v1.1.0-Android.apk` to the phone's **Downloads** folder.
 3. Do not install the file if its source is unexpected or you suspect it has
    been altered. Contact the person who supplied it.
 
 ### Optional: check the file on a Windows computer
 
-For the APK supplied with version **1.0.0**, the SHA-256 checksum is:
+For the APK supplied with version **1.1.0**, the SHA-256 checksum is:
 
 ```text
-AA6EBB854E972B0D3745CAEEF9785A45390F0104C74FBC1AFEA97E48FBB5D568
+54CE353A81A9D892656B44411798764A7F6D5CC354826FEC1A0A21F13ECDADAB
 ```
 
 In PowerShell, run the following if the file is in your Windows Downloads
 folder. Otherwise, replace the path with the file's actual location.
 
 ```powershell
-Get-FileHash -Algorithm SHA256 "$env:USERPROFILE\Downloads\WebP-Converter-v1.0.0-Android.apk"
+Get-FileHash -Algorithm SHA256 "$env:USERPROFILE\Downloads\WebP-Converter-v1.1.0-Android.apk"
 ```
 
 Compare the displayed hash with the value above. If it differs, do not install
@@ -56,13 +56,15 @@ different checksum.
 ## 2. Install the app
 
 1. On your phone, open **Files**, **My Files**, or your phone's file manager.
-2. Open **Downloads** and tap **WebP-Converter-v1.0.0-Android.apk**.
+2. Open **Downloads** and tap **WebP-Converter-v1.1.0-Android.apk**.
 3. If Android says that the file manager is not allowed to install apps:
    - Tap **Settings** in the message.
    - Turn on **Allow from this source** for that file manager.
    - Go back to the installer. If necessary, tap the APK again.
-4. Tap **Install**. When installation finishes, tap **Open**, or find
-   **WebP Converter** in your app list.
+4. Tap **Install** (or **Update** if version 1.0.0 is already installed; your
+   folder choices are kept). When installation finishes, tap **Open**, or find
+   **WebP Converter** in your app list. Its icon is a blue-to-teal tile showing
+   a picture with an orange arrow.
 5. For safety, return to that app's **Install unknown apps** setting and turn
    **Allow from this source** off again. You can search for **Install unknown
    apps** in your phone's Settings if you cannot find it.
@@ -135,7 +137,7 @@ kept.
   reports, and folder grants. Images saved in your selected shared folders
   normally remain, but back them up before uninstalling.
 
-App details for this guide: **WebP Converter 1.0.0**,
+App details for this guide: **WebP Converter 1.1.0**,
 `com.kensteve4ever.webpconverter`.
 
 For detailed instructions on converting images and resolving common conversion issues, see the [User Manual](USER_MANUAL.md).

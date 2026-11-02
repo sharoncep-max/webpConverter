@@ -4,7 +4,18 @@ A native, offline Kotlin/Jetpack Compose app for selecting a folder of WebP imag
 
 ## Installation for users
 
-See the [end-user installation guide](INSTALLATION_GUIDE.md) and [User Manual](USER_MANUAL.md). The versioned APK to share with users is [WebP-Converter-v1.0.0-Android.apk](WebP-Converter-v1.0.0-Android.apk); the standard Gradle release output remains `app\build\outputs\apk\release\app-release.apk`. No public download site has been configured. Complete the device tests described below before distribution.
+See the [end-user installation guide](INSTALLATION_GUIDE.md) and [User Manual](USER_MANUAL.md). The versioned APK to share with users is [WebP-Converter-v1.1.0-Android.apk](WebP-Converter-v1.1.0-Android.apk); the standard Gradle release output remains `app\build\outputs\apk\release\app-release.apk`. No public download site has been configured. Complete the device tests described below before distribution.
+
+## Look and feel (v1.1.0)
+
+| Light | Dark | Converting | Icon |
+|---|---|---|---|
+| ![Light](docs/images/screen-light.png) | ![Dark](docs/images/screen-dark.png) | ![Progress](docs/images/screen-progress.png) | ![Icon](docs/images/app-icon.png) |
+
+- Adaptive launcher icon (`res/drawable/ic_launcher_*.xml`), including a monochrome layer for Android 13+ themed icons and a dedicated notification icon.
+- Material 3 theme with light and dark color schemes (`ui/Theme.kt`), a gradient header, numbered bordered panels, format cards, bordered file rows and a pinned bottom action bar with a progress panel.
+- A custom draggable and tappable scrollbar for the file list (`ui/Scrollbar.kt`).
+- The screenshots were rendered off-device with Robolectric. Check them on a real device as well.
 
 ## User workflow
 
@@ -73,9 +84,10 @@ Unit tests cover file filtering, collision-safe naming and WebP container/animat
 - Packaged graphics-path ELF LOAD segments have 16 KB alignment for all four bundled ABIs.
 - The release-signing guard was tested and rejects missing signing credentials.
 - **Production release APK:** `app\build\outputs\apk\release\app-release.apk`
-  - Application ID `com.kensteve4ever.webpconverter`, versionCode 1 / versionName 1.0.0, minSdk 28, targetSdk 36.
+  - Application ID `com.kensteve4ever.webpconverter`, versionCode 2 / versionName 1.1.0, minSdk 28, targetSdk 36.
   - Signed with the owner production key (PKCS12, RSA 3072, alias `webpconverter-release`, `CN=WebP Converter, O=Independent Developer, C=IN`), APK Signature Scheme v2.
-  - Certificate SHA-256: `a50fee2af2e6b9ff1bd7bd28193f1dffa7eee42a63101c77a9b99c97a2816210`.
+  - Certificate SHA-256: `a50fee2af2e6b9ff1bd7bd28193f1dffa7eee42a63101c77a9b99c97a2816210`. This is the same key as 1.0.0, so 1.1.0 installs as an update.
+  - `WebP-Converter-v1.1.0-Android.apk` SHA-256: `54CE353A81A9D892656B44411798764A7F6D5CC354826FEC1A0A21F13ECDADAB`.
   - The keystore lives outside the project in `%USERPROFILE%\.android-keystores\webpconverter\`. Move the password from `KEYSTORE-CREDENTIALS.txt` into a password manager, delete that file, and keep two encrypted offline backups of the `.p12`. If you lose it, you can't ship updates.
 - No Android device is attached and hardware virtualization is unavailable on this host. Instrumentation pixel/UI tests were compiled, **not executed**. Before distributing the APK, run `connectedDebugAndroidTest` and the device checklist in DEVELOPMENT_PLAN.md §8 on a physical device.
 
