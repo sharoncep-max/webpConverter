@@ -13,11 +13,13 @@
 - A Convert action disabled until at least one file and a destination are selected.
 - Background processing with notification, file-level progress and cancellation.
 - Explicit full-success, partial-failure, cancellation and batch-failure states.
-- Unique output filenames, unchanged originals, per-file error details and restart-readable batch reports.
+- Unique output filenames, unchanged conversion/copy originals, per-file error details and restart-readable batch reports.
+- Convert and Manage files tabs sharing folders and selection; copy/move/delete any subset or all immediate-child WebP files.
+- Confirmation before move/delete, byte-verified moves and explicit permanent-deletion warnings; no same-folder copy/move.
 
 ### Not included
 
-Recursive scanning, animated conversion, resize/crop, metadata preservation, quality sliders, file previews, sharing, cloud sync and accounts. These are not required for this workflow.
+Recursive scanning, animated conversion, resize/crop, metadata preservation in converted JPG/PNG, quality sliders, file previews, sharing, cloud sync and accounts. Copy/move preserve the original WebP bytes, including animation and metadata.
 
 ### Release acceptance criteria
 
@@ -31,6 +33,8 @@ Recursive scanning, animated conversion, resize/crop, metadata preservation, qua
 8. A fully successful batch shows the exact successful count. Mixed results do not claim all files succeeded.
 9. Backgrounding, rotation, notification denial and activity recreation do not lose an active batch; cancellation keeps completed outputs.
 10. The optimized, **owner-signed** release installs, launches and passes acceptance on physical API 28 and current-target devices. APK signature and alignment verification pass.
+11. Copy/move/delete affect exactly the selected WebP files; unselected files, other extensions and subfolders are untouched. Delete requires no output folder and cannot start without explicit confirmation.
+12. Move deletes a source only after a SHA-256-verified copy and a persisted deletion checkpoint. Copy, verification and source-deletion failures are visible; verified copies are not removed when source deletion fails.
 
 Passing a build alone does not satisfy these device and signing gates.
 
@@ -128,11 +132,12 @@ app/src/main/java/com/example/webpconverter/
     Models.kt
     DocumentStore.kt
     BatchStore.kt
+    FileOperationProcessor.kt
   conversion/
     WebpHeader.kt
     ImageConverter.kt
     ConversionWorker.kt
-app/src/test/          # Pure naming/filtering/container tests
+app/src/test/          # Naming/container/operation tests and Robolectric storage/UI integration
 app/src/androidTest/   # Real codecs, pixel assertions, UI gating
 ```
 
@@ -148,6 +153,10 @@ app/src/androidTest/   # Real codecs, pixel assertions, UI gating
 - Decode to mutable software sRGB, draw white **behind** alpha pixels for JPG and mark output opaque. Do not merely clear alpha, which can create black backgrounds.
 - Create a uniquely named destination document; journal it before writing. On file failure/cancellation, attempt deletion and surface cleanup failures.
 - No atomic transaction exists between an arbitrary SAF provider and private JSON. Keep collision safety and expose the small create-before-journal crash window rather than promising impossible exactly-once filesystem semantics.
+- Copy/move stream bytes with bounded buffers and verify SHA-256. Move rechecks source/copy bytes before deletion, including on restart. Do not edit either folder externally during a batch; SAF cannot atomically lock arbitrary provider files.
+- Persist operation type, source folder, output URI, copy-verification and source-deletion checkpoints. Accept older conversion journals without the new fields. Retain verified copies if deletion fails or a move is cancelled.
+- Use the picker's actual read/write grant flags so read-only sources remain usable for conversion/copy. Require input write permission for move/delete.
+- A new delete reports missing sources as failures; resuming a previously checkpointed deletion is idempotent if its source is already absent. Cancellation does not roll back completed destructive changes.
 - Android may stop, delay or quota work. Data-sync foreground-service limits and Android 16 job quotas are relevant for huge batches; use smaller batches rather than bypassing platform restrictions. Explicit cancellation/force-stop is not a promise of automatic resumption.
 
 ## 5. Security and pre-release hardening
@@ -330,6 +339,12 @@ Although this app has no custom native codec, Compose includes `libandroidx.grap
 | Background, screen off, rotation, reopen activity | Worker continues subject to Android scheduling; status restored |
 | Kill process during file write | Previously committed results preserved; interrupted tracked output handled on work rerun |
 | Cancel from app and notification | Completed outputs kept; partial cleanup attempted; no false full success |
+| Switch Convert/Manage files tabs | Input/output and selections shared; tabs/configuration locked during a batch |
+| Copy/move subset and Select all, with existing WebP names | Exact WebP bytes preserved; unique names; unselected files untouched; same-folder operation rejected |
+| Move copy/verification failure or read-only source | Source retained; verified copy retained on deletion failure; per-file error shown |
+| Delete subset/all, cancel confirmation, no output selected | Confirmation required; cancel changes nothing; only selected WebP files removed; source list refreshes |
+| Restart/cancel between move copy, verification and deletion | No source deleted without a verified copy; no completed deletion repeated; completed changes not undone |
+| Upgrade from 1.1.0 with read-only input grant and old journal | Conversion/report compatibility preserved; move/delete request input reselection for write permission |
 | Notification permission denied | Conversion still works; in-app progress remains available |
 | Android time limit / job quota / force-stop | No claim of unlimited background execution; user can reopen/retry pending inputs |
 | 200% font, TalkBack, landscape/tablet | Controls reachable, file rows toggleable, no clipped essential workflow |

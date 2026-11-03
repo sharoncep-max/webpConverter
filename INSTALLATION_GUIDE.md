@@ -1,7 +1,9 @@
 # WebP Converter: Installation Guide
 
 WebP Converter changes selected `.webp` images into JPG or PNG files on your
-Android phone or tablet. Your original images are kept.
+Android phone or tablet. The **Manage files** tab also copies, moves or deletes
+some or all listed WebP files. Conversion and copy keep originals; move and
+delete remove selected source files after confirmation. Deletion has no undo.
 
 > **Before you rely on this version:** This APK has not yet been tested on an
 > Android device. Keep backup copies of your images and ask the developer for a
@@ -11,7 +13,7 @@ Android phone or tablet. Your original images are kept.
 
 - A phone or tablet running **Android 9 or newer**. To check, open **Settings**,
   then look under **About phone** or **About tablet** for **Android version**.
-- The `WebP-Converter-v1.1.0-Android.apk` file supplied by the developer.
+- The `WebP-Converter-v1.3.0-Android.apk` file supplied by the developer.
 - Enough free storage for the app and the converted images. The APK is about
   2.1 MB; large batches need more free space.
 - An internet connection only if you need to download the APK. Image conversion
@@ -23,28 +25,28 @@ directly on your phone.
 
 ## 1. Get the APK safely
 
-1. Ask the developer for `WebP-Converter-v1.1.0-Android.apk` and obtain it through a source you
+1. Ask the developer for `WebP-Converter-v1.3.0-Android.apk` and obtain it through a source you
    trust. This guide does not provide a public download website.
 2. Download it on your phone, or copy it from a computer:
    - Connect your unlocked phone to the computer using a USB cable.
    - If prompted on the phone, choose **File transfer**.
-   - Copy `WebP-Converter-v1.1.0-Android.apk` to the phone's **Downloads** folder.
+   - Copy `WebP-Converter-v1.3.0-Android.apk` to the phone's **Downloads** folder.
 3. Do not install the file if its source is unexpected or you suspect it has
    been altered. Contact the person who supplied it.
 
 ### Optional: check the file on a Windows computer
 
-For the APK supplied with version **1.1.0**, the SHA-256 checksum is:
+For the APK supplied with version **1.3.0**, the SHA-256 checksum is:
 
 ```text
-54CE353A81A9D892656B44411798764A7F6D5CC354826FEC1A0A21F13ECDADAB
+1884B4CA32E8F45FF22443BDB78F86A394E5BAD21181A1F1F754BBB2FC61F081
 ```
 
 In PowerShell, run the following if the file is in your Windows Downloads
 folder. Otherwise, replace the path with the file's actual location.
 
 ```powershell
-Get-FileHash -Algorithm SHA256 "$env:USERPROFILE\Downloads\WebP-Converter-v1.1.0-Android.apk"
+Get-FileHash -Algorithm SHA256 "$env:USERPROFILE\Downloads\WebP-Converter-v1.3.0-Android.apk"
 ```
 
 Compare the displayed hash with the value above. If it differs, do not install
@@ -56,12 +58,12 @@ different checksum.
 ## 2. Install the app
 
 1. On your phone, open **Files**, **My Files**, or your phone's file manager.
-2. Open **Downloads** and tap **WebP-Converter-v1.1.0-Android.apk**.
+2. Open **Downloads** and tap **WebP-Converter-v1.3.0-Android.apk**.
 3. If Android says that the file manager is not allowed to install apps:
    - Tap **Settings** in the message.
    - Turn on **Allow from this source** for that file manager.
    - Go back to the installer. If necessary, tap the APK again.
-4. Tap **Install** (or **Update** if version 1.0.0 is already installed; your
+4. Tap **Install** (or **Update** if version 1.0.0 or 1.1.0 is already installed; your
    folder choices are kept). When installation finishes, tap **Open**, or find
    **WebP Converter** in your app list. Its icon is a blue-to-teal tile showing
    a picture with an orange arrow.
@@ -81,7 +83,7 @@ developers.
 
 ## 3. Convert your first images
 
-1. Open **WebP Converter** and tap **Choose input folder**.
+1. Open **WebP Converter**, select **Convert** and tap **Choose input folder**.
 2. In Android's folder picker, navigate to the folder containing your WebP
    images. Tap **Use this folder**, then **Allow** if asked.
 3. Tap **Choose destination folder** and choose where to save the results.
@@ -93,7 +95,7 @@ developers.
 5. Scroll down to the image list. Select the checkbox beside one or more files,
    or tap **Select all**. The screen shows how many are selected. Tap
    **Select all** again to clear the selection.
-6. Scroll back up and tap **Convert _n_ selected files**. On Android 13 or
+6. Tap **Convert _n_ selected files** in the pinned bottom bar. On Android 13 or
    newer, the app may ask for notification permission. Allow it if you want
    progress notifications; conversion can still start if you decline.
 7. Watch the progress on screen. When all files succeed, you will see a
@@ -110,6 +112,23 @@ Existing output files are kept; a new file may receive a name such as
 
 The app does not copy metadata such as camera details or GPS information to the
 converted file. Keep the original if you need that information.
+
+## 4. Copy, move or delete WebP files
+
+Open **Manage files**, choose the input folder, select **Copy**, **Move** or
+**Delete**, and select individual files or **Select all**.
+
+- **Copy/Move:** choose a different destination folder, then tap the action in
+  the bottom bar. Move asks for confirmation and removes each source only after
+  its copy is verified. Copy keeps originals.
+- **Delete:** no destination is needed. Tap the bottom action, check the source
+  folder and file count, then tap **Delete permanently**. **There is no undo.**
+- After upgrading from an older version, reselect the input folder and grant
+  access before moving or deleting; the previous permission may be read-only.
+- Watch progress and review per-file errors. **Cancel operation** stops remaining
+  work but does not undo completed copies, moves or deletions.
+
+See the [User Manual](USER_MANUAL.md) for detailed instructions and safety notes.
 
 ## Troubleshooting
 
@@ -137,7 +156,7 @@ kept.
   reports, and folder grants. Images saved in your selected shared folders
   normally remain, but back them up before uninstalling.
 
-App details for this guide: **WebP Converter 1.1.0**,
+App details for this guide: **WebP Converter 1.3.0**,
 `com.kensteve4ever.webpconverter`.
 
 For detailed instructions on converting images and resolving common conversion issues, see the [User Manual](USER_MANUAL.md).
