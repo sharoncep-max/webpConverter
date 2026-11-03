@@ -1,26 +1,26 @@
 # WebP Converter — User Manual
 
-**Version:** 1.3.0  
+**Version:** 1.4.0  
 **For:** Android 9 and newer  
-**Purpose:** Convert, copy, move or delete selected WebP files on your device.
+**Purpose:** Convert WebP images, or copy, move or delete selected files on your device.
 
-For downloading and installing the app, see the [Installation Guide](INSTALLATION_GUIDE.md). The APK for this version is named **WebP-Converter-v1.3.0-Android.apk**.
+For downloading and installing the app, see the [Installation Guide](INSTALLATION_GUIDE.md). The APK for this version is named **WebP-Converter-v1.4.0-Android.apk**.
 
 ## What the app does
 
-WebP Converter scans a folder you choose and lets you select some or all of its WebP files. The **Convert** tab saves JPG or PNG copies without changing the originals. The **Manage files** tab copies, moves or permanently deletes the selected WebP files. Processing happens on your device; image contents are not uploaded. Existing destination files are not intentionally overwritten.
+WebP Converter scans a folder you choose. The **Convert** tab saves JPG or PNG copies of selected WebP images without changing the originals. The **Manage files** tab lets you select either WebP files or other file types to copy, move or permanently delete. Processing happens on your device; file contents are not uploaded. Existing destination files are not intentionally overwritten.
 
-> **Important:** Move removes source files after copying; delete permanently removes source files without making a copy. There is no undo. Back up important images first and do not edit the source or destination files during a batch.
+> **Important:** Other files can include documents, videos and files without extensions. Move removes source files after copying; delete permanently removes source files without making a copy. There is no undo. Back up important files first and do not edit the source or destination files during a batch.
 
 ## The screen at a glance
 
 ![WebP Converter main screen](docs/images/screen-light.png)
 
 - **Header** – the app name and a short description at the top.
-- **Tabs** – switch between **Convert** and **Manage files**. The input folder, destination and selection are shared. Tabs and configuration are locked while a batch is active.
-- **Panel 1 – Source folder** – choose the folder that contains your WebP images.
+- **Tabs** – switch between **Convert** and **Manage files**. Input and destination folders are shared; WebP selections are shared when **WebP only** is selected. Switching to a different file category clears the selection. Tabs and configuration are locked while a batch is active.
+- **Panel 1 – Source folder** – choose the input folder. On **Manage files**, choose **WebP only** or **Other files**.
 - **Panel 2** – configure PNG/JPG and destination in **Convert**, or choose **Copy**, **Move** or **Delete** in **Manage files**.
-- **Files list** – each WebP image appears as a bordered card with its name, size and checkbox. A selected card is highlighted. A scrollbar appears on the right while you scroll; drag it to move quickly through long lists, or tap the track to jump.
+- **Files list** – each matching file appears as a bordered card with its name, size and checkbox. A selected card is highlighted. A scrollbar appears on the right while you scroll; drag it to move quickly through long lists, or tap the track to jump.
 - **Bottom bar** – the selected action and file count always stay visible. During a batch, it shows progress and **Cancel conversion** or **Cancel operation**.
 - The app follows your phone's light or dark mode.
 
@@ -43,28 +43,35 @@ WebP Converter scans a folder you choose and lets you select some or all of its 
 
 Conversion can continue while you leave the app. Android may delay or limit long-running background work. Keep the device charged and avoid force-stopping the app during a batch.
 
-## Copy or move WebP files
+## Copy or move files
 
 ![Manage files tab](docs/images/screen-manage.png)
 
 1. Open **Manage files**.
 2. Tap **Choose input folder**, select the source folder and allow access. If you previously used an older app version, reselect the input folder to grant write access before moving or deleting files.
-3. Choose **Copy** or **Move** in the **File operation** panel.
-4. Tap **Choose destination folder** and select a different folder.
-5. Scroll to the file list. Select individual rows/checkboxes, or use **Select all**. Tap **Select all** again to clear it.
-6. Tap **Copy _n_ selected files** or **Move _n_ selected files** in the bottom bar. For move, check the source, destination and count in the confirmation, then tap **Move files**. Tap **Cancel** to do nothing.
-7. Watch the progress, review the result and any per-file errors, and check the destination in your file manager.
+3. Under **Show files**, choose:
+   - **WebP only** to show files whose names end in `.webp`, regardless of letter case.
+   - **Other files** to show all other file types, including files with no extension. This excludes `.webp` files.
+4. Choose **Copy** or **Move** in the **File operation** panel.
+5. Tap **Choose destination folder** and select a different folder.
+6. Scroll to the file list. Select individual rows/checkboxes, or use **Select all** for the currently displayed category. Tap **Select all** again to clear it.
+7. Tap **Copy _n_ selected files** or **Move _n_ selected files** in the bottom bar. For move, check the source, destination, file category and count in the confirmation, then tap **Move files**. Tap **Cancel** to do nothing.
+8. Watch the progress, review the result and any per-file errors, and check the destination in your file manager.
+
+![Other files selected in Manage files](docs/images/screen-other-files.png)
+
+Changing the file category clears the selection. Switching to **Convert** from **Other files** also clears it and shows only WebP files. Switching between **Convert** and **Manage files** with **WebP only** retains the WebP selection. The chosen Manage files category is remembered until changed or reset.
 
 **Copy** leaves the originals in place. **Move** first copies each file, checks the bytes using SHA-256, then deletes that source file. If copying or verification fails, its source is not deleted. If source deletion fails, the verified destination copy is kept and the error is reported; inspect both folders before retrying to avoid duplicate copies. The source list refreshes automatically after moving.
 
-Both operations preserve the WebP file contents, including animation and embedded metadata; they do not convert the images. Existing destination names get a numbered suffix such as `photo (1).webp`. Copying or moving into the same folder is not allowed.
+Both operations copy file contents unchanged, including embedded metadata and any WebP animation; they do not convert files. The app supplies the source MIME type when available, but provider-level metadata such as timestamps may differ. Existing destination names get a numbered suffix such as `photo (1).webp` or `report (1).pdf`. Names with unsupported characters may be sanitized and very long names may be shortened. Copying or moving into the same folder is not allowed.
 
-## Delete some or all WebP files
+## Delete some or all files
 
-1. Open **Manage files**, choose the input folder and select **Delete**.
-2. Select the files to remove, or tap **Select all** to select all listed WebP files. Unselected files, other file types and subfolders are not affected.
+1. Open **Manage files**, choose the input folder, choose **WebP only** or **Other files**, and select **Delete**.
+2. Select the files to remove, or tap **Select all** to select all files in the displayed category. Unselected files, files in the other category, and subfolders are not affected.
 3. Tap **Delete _n_ selected files**. No destination folder is required.
-4. Check the source folder and count. Tap **Delete permanently** to proceed, or **Cancel** to keep everything.
+4. Check the source folder, file category and count. Tap **Delete permanently** to proceed, or **Cancel** to keep everything.
 5. Review the result and any errors. The file list refreshes automatically.
 
 **Deletion is permanent. The app has no recycle bin or undo.**
@@ -73,7 +80,7 @@ Both operations preserve the WebP file contents, including animation and embedde
 
 ### Reset both tabs
 
-Tap **Reset** in the bottom bar on either tab to start fresh. It clears the input and destination folders, file list, selections, previous results and error messages on **both tabs**. PNG and Copy are restored as defaults; the current tab stays open. Cleared fields and previous results stay cleared when you reopen the app.
+Tap **Reset** in the bottom bar on either tab to start fresh. It clears the input and destination folders, file list, selections, previous results and error messages on **both tabs**. PNG, Copy and **WebP only** are restored as defaults; the current tab stays open. Cleared fields and previous results stay cleared when you reopen the app.
 
 Reset does not delete or change any files, undo completed operations, or revoke Android folder permissions. It is disabled while an operation is queued/running or its status is being restored. Wait for the operation to finish, or cancel it and wait for it to stop, before resetting.
 
@@ -83,7 +90,7 @@ Reset does not delete or change any files, undo completed operations, or revoke 
 - Android may prevent access to certain locations, including the Downloads root, `Android/data`, and `Android/obb`. Use an allowed subfolder such as `Pictures/WebPInput` or `Download/WebPOutput`.
 - Local device folders are recommended. Cloud or third-party providers can be slower, unavailable, read-only, or have different file-naming behavior.
 - If a destination already contains a file with the same name, the app keeps it and gives the new output a unique name, such as `photo (1).png`.
-- Conversion does not copy source metadata such as camera details, GPS location, or other embedded metadata to JPG/PNG images. Copy/move keep the WebP bytes and metadata unchanged.
+- Conversion does not copy source metadata such as camera details, GPS location, or other embedded metadata to JPG/PNG images. Copy/move keep file bytes and embedded data unchanged, but storage-provider metadata may differ.
 
 ## Cancel a conversion
 
@@ -93,7 +100,8 @@ For copy, move or delete, tap **Cancel operation**. Cancellation stops remaining
 
 ## Supported files and expected results
 
-- Static `.webp` images, with the extension matched without regard to letter case.
+- Conversion accepts only static `.webp` images, with the extension matched without regard to letter case.
+- **Manage files** supports WebP files or other direct-child files, including documents and extensionless files. Subfolders are not included.
 - Output is saved as `.png` or `.jpg`, according to your selected format.
 - Image dimensions are retained. Extremely large images may fail if they exceed the device's safe decoding memory budget; the app does not silently resize them.
 - Animated WebP conversion is not supported. It is reported as a per-file failure rather than silently converted into a still image. Animated files can still be copied, moved or deleted.
@@ -104,7 +112,7 @@ For copy, move or delete, tap **Cancel operation**. Cancellation stops remaining
 
 | What you see | What to do |
 |---|---|
-| No files are listed | Confirm that the files end in `.webp` and are directly inside the selected folder. Tap **Refresh**. |
+| No files are listed | Check the selected file category in **Manage files**, and confirm the files are directly inside the selected folder. **Convert** lists only `.webp` files. Tap **Refresh**. |
 | The folder picker will not let you choose a location | Choose an ordinary subfolder instead of a restricted Android or Downloads root location. |
 | **Convert** is unavailable | Select an input folder, an output folder, and at least one file. Wait for scanning or any active batch to finish. |
 | A file reports an error | Check the filename shown with the error. Make sure the input is readable, the destination is writable and has free space, and the image is not animated or unusually large. |
@@ -119,13 +127,13 @@ Conversion and copy leave the originals unchanged. Move and delete may already h
 
 ## Privacy and app data
 
-The app processes files locally and does not upload image contents. It uses the folder permissions you grant through Android's system picker. It stores batch status and results privately so operation progress can be restored. Clearing app data removes that status and the saved folder permissions, but does not normally delete saved outputs in shared folders.
+The app processes files locally and does not upload file contents. It uses the folder permissions you grant through Android's system picker. It stores batch status and results privately so operation progress can be restored. Clearing app data removes that status and the saved folder permissions, but does not normally delete saved outputs in shared folders.
 
 ## App information
 
 - **App name:** WebP Converter
-- **Version:** 1.3.0
-- **Package ID:** `com.kensteve4ever.webpconverter`
+- **Version:** 1.4.0
+- **Package ID:** `com.apps.multiformat.webpconverter`
 - **Minimum Android version:** Android 9 (API 28)
 
 This version has not yet been verified through on-device testing. Keep copies of important originals and check conversion results before relying on them.

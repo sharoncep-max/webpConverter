@@ -6,7 +6,7 @@
 
 - Native Android, entirely on-device; no login, backend, upload, advertisements or network permission.
 - Input folder picker using Storage Access Framework (SAF).
-- Immediate-child scan filtering `.webp` extensions case-insensitively; name, size and selectable row per file.
+- Immediate-child scan; conversion filters `.webp` extensions case-insensitively, while management offers WebP-only or other-file filtering. Each matching file has a name, size and selectable row.
 - Single/multiple/all selection, clear selection and live selected count.
 - Separate destination folder picker.
 - PNG/JPG choice, PNG alpha preservation and automatic white compositing for JPG.
@@ -14,16 +14,16 @@
 - Background processing with notification, file-level progress and cancellation.
 - Explicit full-success, partial-failure, cancellation and batch-failure states.
 - Unique output filenames, unchanged conversion/copy originals, per-file error details and restart-readable batch reports.
-- Convert and Manage files tabs sharing folders and selection; copy/move/delete any subset or all immediate-child WebP files.
+- Convert and Manage files tabs sharing folders and compatible WebP selection; copy/move/delete any subset or all immediate-child files in the chosen WebP or non-WebP category.
 - Confirmation before move/delete, byte-verified moves and explicit permanent-deletion warnings; no same-folder copy/move.
 
 ### Not included
 
-Recursive scanning, animated conversion, resize/crop, metadata preservation in converted JPG/PNG, quality sliders, file previews, sharing, cloud sync and accounts. Copy/move preserve the original WebP bytes, including animation and metadata.
+Recursive scanning, animated conversion, resize/crop, metadata preservation in converted JPG/PNG, quality sliders, file previews, sharing, cloud sync and accounts. Copy/move preserve file bytes, including embedded metadata and any WebP animation; provider-level metadata can differ.
 
 ### Release acceptance criteria
 
-1. A mixed folder lists only immediate-child WebP files, including `.WEBP`, and excludes directories even when their names end in `.webp`.
+1. Conversion lists only immediate-child WebP files, including `.WEBP`. Management filters WebP or non-WebP files, including extensionless files, and both exclude directories even when their names end in `.webp`.
 2. Individual toggles, multiple selection, Select all and clear-all produce the exact expected conversion set.
 3. Output files have matching **encoded signatures**, MIME types and extensions, not just renamed inputs.
 4. Output dimensions match the decoded originals. PNG retains alpha; fully transparent pixels become RGB white in JPG and partial alpha blends against white (allow JPEG tolerance).
@@ -33,7 +33,7 @@ Recursive scanning, animated conversion, resize/crop, metadata preservation in c
 8. A fully successful batch shows the exact successful count. Mixed results do not claim all files succeeded.
 9. Backgrounding, rotation, notification denial and activity recreation do not lose an active batch; cancellation keeps completed outputs.
 10. The optimized, **owner-signed** release installs, launches and passes acceptance on physical API 28 and current-target devices. APK signature and alignment verification pass.
-11. Copy/move/delete affect exactly the selected WebP files; unselected files, other extensions and subfolders are untouched. Delete requires no output folder and cannot start without explicit confirmation.
+11. Copy/move/delete affect exactly the selected files in the chosen category; unselected files, the other category and subfolders are untouched. Delete requires no output folder and cannot start without explicit confirmation.
 12. Move deletes a source only after a SHA-256-verified copy and a persisted deletion checkpoint. Copy, verification and source-deletion failures are visible; verified copies are not removed when source deletion fails.
 
 Passing a build alone does not satisfy these device and signing gates.
@@ -239,7 +239,7 @@ Do not treat compiled instrumentation tests as executed tests. Complete the manu
 
 ### C. Create the production keystore ONCE
 
-The final application ID is `com.kensteve4ever.webpconverter`. The Kotlin `namespace` stays `com.example.webpconverter`, which only affects the source package and `R` class. A production keystore has already been created at `%USERPROFILE%\.android-keystores\webpconverter\webpconverter-release.p12` (alias `webpconverter-release`). Run the command below only if you need to create one on another machine. Never regenerate the key for an app that is already published.
+The final application ID is `com.apps.multiformat.webpconverter`. The Kotlin `namespace` stays `com.example.webpconverter`, which only affects the source package and `R` class. A production keystore has already been created at `%USERPROFILE%\.android-keystores\webpconverter\webpconverter-release.p12` (alias `webpconverter-release`). Run the command below only if you need to create one on another machine. Never regenerate the key for an app that is already published.
 
 ```powershell
 # Use a protected, backed-up folder OUTSIDE the project.
@@ -339,10 +339,10 @@ Although this app has no custom native codec, Compose includes `libandroidx.grap
 | Background, screen off, rotation, reopen activity | Worker continues subject to Android scheduling; status restored |
 | Kill process during file write | Previously committed results preserved; interrupted tracked output handled on work rerun |
 | Cancel from app and notification | Completed outputs kept; partial cleanup attempted; no false full success |
-| Switch Convert/Manage files tabs | Input/output and selections shared; tabs/configuration locked during a batch |
-| Copy/move subset and Select all, with existing WebP names | Exact WebP bytes preserved; unique names; unselected files untouched; same-folder operation rejected |
+| Switch Convert/Manage files tabs and file categories | Folders shared; WebP selection shared for WebP-only, incompatible selections cleared; conversion remains WebP-only; controls locked during a batch |
+| Copy/move subset and Select all, with existing WebP and non-WebP names | Exact bytes preserved; correct MIME when available; unique names, including extensionless files; unselected files untouched; same-folder operation rejected |
 | Move copy/verification failure or read-only source | Source retained; verified copy retained on deletion failure; per-file error shown |
-| Delete subset/all, cancel confirmation, no output selected | Confirmation required; cancel changes nothing; only selected WebP files removed; source list refreshes |
+| Delete subset/all in each file category, cancel confirmation, no output selected | Confirmation identifies category; cancel changes nothing; only selected files removed; source list refreshes |
 | Restart/cancel between move copy, verification and deletion | No source deleted without a verified copy; no completed deletion repeated; completed changes not undone |
 | Upgrade from 1.1.0 with read-only input grant and old journal | Conversion/report compatibility preserved; move/delete request input reselection for write permission |
 | Notification permission denied | Conversion still works; in-app progress remains available |
