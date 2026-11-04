@@ -4,7 +4,7 @@ A native, offline Kotlin/Jetpack Compose app for bulk converting WebP images to 
 
 ## Installation for users
 
-See the [end-user installation guide](INSTALLATION_GUIDE.md) and [User Manual](USER_MANUAL.md). The versioned APK to share with users is [WebP-Converter-v1.4.0-Android.apk](WebP-Converter-v1.4.0-Android.apk); the standard Gradle release output remains `app\build\outputs\apk\release\app-release.apk`. No public download site has been configured. Complete the device tests described below before distribution.
+See the [end-user installation guide](docs/INSTALLATION_GUIDE.md) and [User Manual](docs/USER_MANUAL.md). The versioned APK to share with users is [WebP-Converter-v1.4.0-Android.apk](WebP-Converter-v1.4.0-Android.apk); the standard Gradle release output remains `app\build\outputs\apk\release\app-release.apk`. No public download site has been configured. Complete the device tests described below before distribution.
 
 ## Look and feel (v1.4.0)
 
@@ -55,9 +55,9 @@ Conversion never modifies originals or intentionally overwrites an existing dest
 
 ## Open and build
 
-See [DEVELOPMENT_PLAN.md](DEVELOPMENT_PLAN.md) for hardware, architecture, phased delivery, device acceptance tests and production signing.
+See [DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md) for hardware, architecture, phased delivery, device acceptance tests and production signing.
 
-For Google Play publication, signed AAB builds, update releases, key backups/recovery and migration to a new development PC, see the [Play Store Deployment Guide](PLAY_STORE_DEPLOYMENT_GUIDE.md).
+For Google Play publication, signed AAB builds, update releases, key backups/recovery and migration to a new development PC, see the [Play Store Deployment Guide](docs/PLAY_STORE_DEPLOYMENT_GUIDE.md).
 
 Requirements: JDK 17, Android SDK Platform 36, Build Tools 35.0.0, internet for the initial dependency restore, and Android 9/API 28+ to run.
 
@@ -104,7 +104,7 @@ JVM tests cover both file filters, collision-safe naming for files with and with
   - Certificate SHA-256: `a50fee2af2e6b9ff1bd7bd28193f1dffa7eee42a63101c77a9b99c97a2816210`. This is the same key as previous releases. Version 1.4.0 can update 1.3.1, which uses the same application ID. Versions 1.0.0–1.3.0 used `com.kensteve4ever.webpconverter` and cannot be updated in place. Their old APKs have been removed; keep superseded APKs from future releases in `archive\<application-id>\`.
   - `WebP-Converter-v1.4.0-Android.apk` SHA-256: `50FC677316D436C51BCC817F84B8E67647D3CFAC4D2F93D080441B8F1F869D1A`.
   - The keystore lives outside the project in `%USERPROFILE%\.android-keystores\webpconverter\`. Move the password from `KEYSTORE-CREDENTIALS.txt` into a password manager, delete that file, and keep two encrypted offline backups of the `.p12`. If you lose it, you can't ship updates.
-- No Android device is attached and hardware virtualization is unavailable on this host. Instrumentation pixel/UI tests were compiled, **not executed**. Before distributing the APK, run `connectedDebugAndroidTest` and the device checklist in DEVELOPMENT_PLAN.md §8 on a physical device.
+- No Android device is attached and hardware virtualization is unavailable on this host. Instrumentation pixel/UI tests were compiled, **not executed**. Before distributing the APK, run `connectedDebugAndroidTest` and the device checklist in [DEVELOPMENT_PLAN.md](docs/DEVELOPMENT_PLAN.md) §8 on a physical device.
 
 ## Project layout
 

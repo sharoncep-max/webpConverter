@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WebP Converter</string>
+    <string name="notification_channel">WebP batch operations</string>
+    <string name="notification_title">Converting WebP images</string>
+    <string name="notification_progress">Converting %1$d of %2$d</string>
+    <string name="cancel">Cancel</string>
+</resources>
