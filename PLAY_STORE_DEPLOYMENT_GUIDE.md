@@ -48,7 +48,7 @@ The keys may initially be the same, but separate keys reduce exposure of the lon
 The application ID was changed to `com.apps.multiformat.webpconverter` **before** the first Play release. Android treats it as a brand-new app:
 
 - Earlier standalone APKs (1.0.0–1.3.0 built as `com.kensteve4ever.webpconverter`) **cannot be updated** by this package. Both apps can be installed side by side. Ask anyone who has the old app to install the new one, then uninstall the old one. Folder choices and settings do not carry over; they simply choose their folders again.
-- Old APK files are kept in `archive\com.kensteve4ever.webpconverter\` for reference only. Do not distribute them anymore.
+- Historical APKs for the old application ID have been removed from the repository. For future releases, keep each superseded APK in `archive\<application-id>\` when replacing it with a new release. Archived APKs are for reference only; do not distribute them.
 - There is no installed base to preserve, so you may choose either signing option below. Decide **once**; the app-signing key cannot be casually changed after the first release.
 
 | Option | When to choose it | How |
