@@ -181,7 +181,7 @@ Android limits foreground-service duration and WorkManager execution; do not adv
 Run commands from the project root. For example:
 
 ```powershell
-Set-Location 'C:\Study\Android\webpToPngConverter'
+Set-Location 'C:\Study\Android\webpConverter'
 $env:JAVA_HOME = 'C:\Java\jdk-17' # Replace with the real JDK 17 location.
 & "$env:JAVA_HOME\bin\java.exe" -version
 .\gradlew.bat --version
